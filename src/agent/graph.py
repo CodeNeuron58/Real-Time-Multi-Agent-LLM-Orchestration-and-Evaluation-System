@@ -5,14 +5,10 @@ from src.agent.orchestrator import orchestrator_node
 from src.agent.decomposition import decomposition_node
 from src.agent.rag import rag_node
 from src.agent.critique import critique_node
+from src.agent.synthesis import synthesis_node
 
 # --- Node Skeleton Functions ---
 # We will implement the actual LLM logic in these later.
-
-async def synthesis_node(state: AgentState):
-    """Merges outputs and resolves contradictions."""
-    print("--- SYNTHESIS NODE ---")
-    return {"final_answer": "Placeholder final answer", "next_node": END}
 
 async def compression_node(state: AgentState):
     """Interceptor node that runs when context budget is near overflow."""
