@@ -11,14 +11,14 @@ class Settings(BaseSettings):
     openai_api_key: str | None = None
     
     # Application Settings
-    app_name: str = "Real-Time Multi-Agent LLM Orchestration and Evaluation System"
+    app_name: str = "Multi-Agent LLM Orchestrator"
     app_env: str = "development" # "development", "test", "production"
 
     # SettingsConfigDict tells Pydantic to read from the .env file
     model_config = SettingsConfigDict(
         env_file=".env", 
         env_file_encoding="utf-8", 
-        extra="ignore"
+        extra="ignore" # Ignore extra env vars not defined here
     )
 
 # Instantiate a global settings object to be imported across the app

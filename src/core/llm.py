@@ -1,6 +1,6 @@
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
-from src.core.config import settings
+from src.config.settings import settings
 
 def get_llm(temperature: float | None = None):
     """

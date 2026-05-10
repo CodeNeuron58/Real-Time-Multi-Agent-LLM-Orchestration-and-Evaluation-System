@@ -1,3 +1,4 @@
+from src.config.prompts import DECOMPOSITION_PROMPT
 from typing import List
 from pydantic import BaseModel, Field
 from src.core.llm import get_llm
@@ -10,21 +11,6 @@ class DecompositionResult(BaseModel):
     tasks: List[SubTask] = Field(
         description="A list of distinct sub-tasks that, when completed in order, resolve the main query."
     )
-
-DECOMPOSITION_PROMPT = """You are the Decomposition Agent in a multi-agent system.
-Your goal is to break down a complex or ambiguous user query into a Directed Acyclic Graph (DAG) of sub-tasks.
-
-Rules:
-1. Each task must have a unique `task_id` (e.g., "task_1", "task_2").
-2. Each task must have a clear, actionable `description`.
-3. If a task depends on the output of another task, list the parent's `task_id` in the `dependencies` array.
-4. Independent tasks should have an empty `dependencies` array so they can be run in parallel.
-5. Do not solve the query. Only plan how to solve it.
-6. Keep the number of tasks to the minimum required.
-
-Original Query:
-{query}
-"""
 
 async def decomposition_node(state: AgentState):
     """

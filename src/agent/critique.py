@@ -1,3 +1,4 @@
+from src.config.prompts import CRITIQUE_PROMPT
 import json
 from typing import List
 from pydantic import BaseModel, Field
@@ -12,23 +13,6 @@ class CritiqueResult(BaseModel):
     critiques: List[Critique] = Field(
         description="A list of critiques, one for each completed task that hasn't been critiqued yet."
     )
-
-CRITIQUE_PROMPT = """You are the Critique Agent in a multi-agent system.
-Your job is to review the output of tasks completed by the RAG Agent.
-
-For each completed task provided below, you must:
-1. Assign a confidence score from 0.0 to 1.0.
-2. Flag specific spans of text (exact quotes) that you disagree with, find factually suspicious, or that contradict other tasks. Do NOT flag the whole output, only the specific spans. If there are no issues, leave the flagged_spans list empty.
-3. Provide constructive feedback explaining your score and flags.
-
-Original Query:
-{query}
-
-Tasks to Critique:
-{tasks_to_critique}
-
-Remember, if a task introduces a contradiction with the premise of the query or another task, you MUST flag it so the Synthesis agent can resolve it later.
-"""
 
 async def critique_node(state: AgentState):
     """

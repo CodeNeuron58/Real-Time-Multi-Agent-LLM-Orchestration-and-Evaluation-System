@@ -1,3 +1,4 @@
+from src.config.prompts import ORCHESTRATOR_PROMPT
 from typing import Literal
 from pydantic import BaseModel, Field
 from src.core.llm import get_llm
@@ -22,26 +23,6 @@ class OrchestratorDecision(BaseModel):
     )
 
 # Orchestrator Prompt
-ORCHESTRATOR_PROMPT = """You are the Master Orchestrator of a multi-agent system.
-Your job is to examine the current state of the task and decide which specialized agent should act next.
-
-Available Agents:
-1. decomposition_node: Breaks down ambiguous or complex queries into a graph of sub-tasks. Route here first if sub_tasks is empty.
-2. rag_node: Retrieves information to solve specific pending sub-tasks. Route here if there are pending tasks that need data.
-3. critique_node: Reviews completed tasks to find errors, low confidence, or contradictions. Route here after RAG completes a task.
-4. synthesis_node: Merges all critiqued and completed tasks into a final answer. Route here when all sub-tasks are complete and critiqued.
-5. END: Route here ONLY if the final_answer has been generated and no further work is needed.
-
-Current State Summary:
-- Original Query: {query}
-- Number of Sub-Tasks: {num_sub_tasks}
-- Number of Completed Tasks: {num_completed_tasks}
-- Number of Critiques: {num_critiques}
-- Final Answer Exists: {has_final_answer}
-
-Examine the state carefully. Output your decision and your justification.
-"""
-
 async def orchestrator_node(state: AgentState):
     """
     The master orchestrator. Evaluates current state and decides the next step via LLM.

@@ -1,3 +1,4 @@
+from src.config.prompts import RAG_SYSTEM_PROMPT
 import json
 from typing import List, Dict, Any
 from pydantic import BaseModel, Field
@@ -13,25 +14,6 @@ class RAGTaskResult(BaseModel):
     answer: str = Field(description="The complete answer to the sub-task.")
     citations: List[str] = Field(description="A list of exact quotes or references used to form the answer.")
     tools_used: List[str] = Field(description="Names of tools used during multi-hop reasoning.")
-
-RAG_SYSTEM_PROMPT = """You are a highly capable Retrieval-Augmented Generation (RAG) agent.
-Your goal is to solve ONE specific sub-task.
-You must perform multi-hop reasoning. This means you should use tools, analyze the results, and if necessary, use tools again to dig deeper before forming a final answer.
-
-You have access to the following tools:
-1. web_search(query: str): Returns web search results.
-2. python_sandbox(code: str): Executes python code.
-3. sql_lookup(sql_query: str): Queries a local database.
-
-You MUST cite your sources. Your final output must include the answer and a list of citations proving where the data came from.
-
-Current Task to Solve:
-Task ID: {task_id}
-Description: {task_description}
-
-Context from previously completed tasks (if any):
-{completed_context}
-"""
 
 async def _execute_tool_with_fallback(tool_call: dict) -> str:
     """Executes a tool and handles fallbacks internally based on the tool's defined failure contract."""

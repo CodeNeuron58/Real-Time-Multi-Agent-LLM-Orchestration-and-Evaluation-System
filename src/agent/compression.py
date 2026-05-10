@@ -1,19 +1,9 @@
+from src.config.prompts import COMPRESSION_PROMPT
 from src.core.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, RemoveMessage
 
 from src.schemas.state import AgentState
-
-COMPRESSION_PROMPT = """You are a Context Compression Agent.
-Your job is to take a conversational history and compress it into a concise summary.
-
-CRITICAL RULES:
-1. You must be LOSSY for conversational filler (e.g., "Hello, I will now do this...", "Okay, next...").
-2. You must be LOSSLESS for structured data (e.g., JSON, tool outputs, citations, exact scores). Do not modify or summarize structured data; copy it exactly.
-
-Compress the following conversation history:
-{text_to_compress}
-"""
 
 async def compression_node(state: AgentState):
     """

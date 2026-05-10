@@ -1,3 +1,4 @@
+from src.config.prompts import SYNTHESIS_PROMPT
 import json
 from typing import List
 from pydantic import BaseModel, Field
@@ -23,26 +24,6 @@ class SynthesisResult(BaseModel):
     resolved_contradictions: List[str] = Field(
         description="A list explaining how any flagged contradictions were resolved."
     )
-
-SYNTHESIS_PROMPT = """You are the Synthesis Agent in a multi-agent system.
-Your job is to merge the outputs of all completed sub-tasks into a final cohesive answer to the user's original query.
-
-Original Query:
-{query}
-
-Completed Tasks:
-{completed_tasks}
-
-Critiques and Flagged Contradictions:
-{critiques}
-
-Rules:
-1. You must resolve any contradictions flagged by the Critique Agent. Do not ignore them. If one task contradicts another, use your reasoning to determine the correct path and explain it in `resolved_contradictions`.
-2. Produce a well-formatted `final_answer`.
-3. Provide a `provenance_map`. For EVERY sentence in your final answer, you must link it back to the specific `task_id` and the specific chunk of text from that task that provided the information.
-
-Output your final synthesized response.
-"""
 
 async def synthesis_node(state: AgentState):
     """
