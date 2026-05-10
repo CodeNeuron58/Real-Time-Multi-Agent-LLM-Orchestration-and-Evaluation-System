@@ -1,8 +1,9 @@
+from typing import Literal
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     # LLM Settings
-    llm_provider: str = "groq" # Options: "groq" or "openai"
+    llm_provider: Literal["groq", "openai"] = "groq"
     llm_model: str = "llama-3.3-70b-versatile"
     llm_temperature: float = 0.0
     
