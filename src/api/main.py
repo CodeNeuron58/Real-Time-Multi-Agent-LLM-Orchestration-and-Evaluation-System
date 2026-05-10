@@ -5,6 +5,7 @@ import warnings
 from typing import AsyncGenerator
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 from sse_starlette.sse import EventSourceResponse
 
 # Suppress the upstream LangChain deprecation warning caused by LangGraph
@@ -20,6 +21,9 @@ app = FastAPI(
     description="A real-time multi-agent system with SSE streaming.",
     version="0.1.0"
 )
+
+class QueryRequest(BaseModel):
+    query: str
 
 async def event_generator(query: str, job_id: str) -> AsyncGenerator[str, None]:
     """
@@ -106,12 +110,11 @@ async def event_generator(query: str, job_id: str) -> AsyncGenerator[str, None]:
 
 
 @app.post("/api/v1/query/stream")
-async def submit_query_stream(request: Request):
+async def submit_query_stream(request: QueryRequest):
     """
     Submit a query and receive a streaming SSE response with real-time agent activity.
     """
-    body = await request.json()
-    query = body.get("query")
+    query = request.query
     
     if not query:
         return {"error": "Query is required"}
