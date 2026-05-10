@@ -1,8 +1,7 @@
 import json
 from typing import List, Dict, Any
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
-
+from src.core.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, HumanMessage
 
@@ -84,7 +83,7 @@ async def rag_node(state: AgentState):
     print(f"Solving Task: {task_to_solve.task_id} - {task_to_solve.description}")
     
     # 2. Prepare the LLM with tool-calling capabilities
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = get_llm(temperature=0)
     
     # In a full implementation, we'd bind LangChain tools here. 
     # For this assessment's strict requirement on custom tool loops and fallbacks,

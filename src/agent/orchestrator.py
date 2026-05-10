@@ -1,6 +1,6 @@
 from typing import Literal
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
+from src.core.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langgraph.graph import END
 
@@ -50,7 +50,7 @@ async def orchestrator_node(state: AgentState):
     
     # Initialize the LLM (ensure OPENAI_API_KEY is in env later)
     # Using a fast model for orchestration logic
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = get_llm(temperature=0)
     structured_llm = llm.with_structured_output(OrchestratorDecision)
     
     prompt = ChatPromptTemplate.from_messages([

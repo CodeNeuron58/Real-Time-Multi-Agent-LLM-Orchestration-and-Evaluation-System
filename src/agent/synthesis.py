@@ -1,7 +1,7 @@
 import json
 from typing import List
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
+from src.core.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langgraph.graph import END
 
@@ -53,7 +53,7 @@ async def synthesis_node(state: AgentState):
     completed_tasks = state.get("completed_task_results", {})
     critiques = state.get("critique_flags", [])
     
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = get_llm(temperature=0)
     structured_llm = llm.with_structured_output(SynthesisResult)
     
     prompt = ChatPromptTemplate.from_messages([

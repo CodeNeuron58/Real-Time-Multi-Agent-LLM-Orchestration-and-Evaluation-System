@@ -1,7 +1,7 @@
 import json
 from typing import List
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
+from src.core.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, HumanMessage
 
@@ -54,7 +54,7 @@ async def critique_node(state: AgentState):
         
     print(f"Critiquing {len(tasks_to_critique)} tasks...")
     
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = get_llm(temperature=0)
     structured_llm = llm.with_structured_output(CritiqueResult)
     
     prompt = ChatPromptTemplate.from_messages([

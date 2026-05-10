@@ -1,4 +1,4 @@
-from langchain_openai import ChatOpenAI
+from src.core.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, RemoveMessage
 
@@ -27,7 +27,7 @@ async def compression_node(state: AgentState):
         print("Not enough messages to compress.")
         return {"next_node": "orchestrator_node"}
         
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = get_llm(temperature=0)
     
     # Prepare text to compress
     text_to_compress = "\n".join([f"{m.type}: {m.content}" for m in messages])

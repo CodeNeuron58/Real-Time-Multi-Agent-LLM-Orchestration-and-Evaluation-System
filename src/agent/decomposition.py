@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
+from src.core.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 
 from src.schemas.state import AgentState, SubTask
@@ -37,7 +37,7 @@ async def decomposition_node(state: AgentState):
         print("No query found in state. Skipping decomposition.")
         return {"next_node": "orchestrator_node"}
 
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = get_llm(temperature=0)
     structured_llm = llm.with_structured_output(DecompositionResult)
     
     prompt = ChatPromptTemplate.from_messages([
