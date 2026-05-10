@@ -3,14 +3,10 @@ from langgraph.graph import StateGraph, START, END
 from src.schemas.state import AgentState
 from src.agent.orchestrator import orchestrator_node
 from src.agent.decomposition import decomposition_node
+from src.agent.rag import rag_node
 
 # --- Node Skeleton Functions ---
 # We will implement the actual LLM logic in these later.
-
-async def rag_node(state: AgentState):
-    """Multi-hop retrieval agent."""
-    print("--- RAG NODE ---")
-    return {"next_node": "orchestrator_node"}
 
 async def critique_node(state: AgentState):
     """Reviews outputs, assigns confidence scores and flags spans."""
