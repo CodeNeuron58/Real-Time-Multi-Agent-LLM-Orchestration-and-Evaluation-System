@@ -2,14 +2,10 @@ from typing import Literal
 from langgraph.graph import StateGraph, START, END
 from src.schemas.state import AgentState
 from src.agent.orchestrator import orchestrator_node
+from src.agent.decomposition import decomposition_node
 
 # --- Node Skeleton Functions ---
 # We will implement the actual LLM logic in these later.
-
-async def decomposition_node(state: AgentState):
-    """Breaks queries into a DAG of sub-tasks."""
-    print("--- DECOMPOSITION NODE ---")
-    return {"next_node": "orchestrator_node"}
 
 async def rag_node(state: AgentState):
     """Multi-hop retrieval agent."""
