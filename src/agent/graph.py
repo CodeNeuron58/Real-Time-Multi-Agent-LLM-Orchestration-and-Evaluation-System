@@ -6,15 +6,7 @@ from src.agent.decomposition import decomposition_node
 from src.agent.rag import rag_node
 from src.agent.critique import critique_node
 from src.agent.synthesis import synthesis_node
-
-# --- Node Skeleton Functions ---
-# We will implement the actual LLM logic in these later.
-
-async def compression_node(state: AgentState):
-    """Interceptor node that runs when context budget is near overflow."""
-    print("--- COMPRESSION NODE ---")
-    return state
-
+from src.agent.compression import compression_node
 
 # --- Edge Routing Logic ---
 

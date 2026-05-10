@@ -1,6 +1,7 @@
 from typing import Annotated, TypedDict, Any
 from pydantic import BaseModel, Field
 from langchain_core.messages import BaseMessage
+from langgraph.graph.message import add_messages
 import operator
 
 class SubTask(BaseModel):
@@ -35,7 +36,7 @@ class AgentState(TypedDict):
     """
     job_id: str
     query: str
-    messages: Annotated[list[BaseMessage], operator.add]
+    messages: Annotated[list[BaseMessage], add_messages]
     sub_tasks: dict[str, SubTask]  # Dictionary for easier lookups by task_id
     completed_task_results: dict[str, str] # task_id -> result string
     critique_flags: Annotated[list[Critique], operator.add]
