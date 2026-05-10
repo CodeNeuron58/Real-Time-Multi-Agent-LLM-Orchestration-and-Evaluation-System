@@ -1,10 +1,15 @@
 import json
 import uuid
 import asyncio
+import warnings
 from typing import AsyncGenerator
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 from sse_starlette.sse import EventSourceResponse
+
+# Suppress the upstream LangChain deprecation warning caused by LangGraph
+from langchain_core._api.deprecation import LangChainPendingDeprecationWarning
+warnings.filterwarnings("ignore", category=LangChainPendingDeprecationWarning)
 
 from src.agent.graph import graph
 from src.schemas.state import AgentState
