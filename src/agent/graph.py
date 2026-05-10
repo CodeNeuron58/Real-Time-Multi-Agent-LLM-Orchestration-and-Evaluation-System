@@ -1,25 +1,10 @@
 from typing import Literal
 from langgraph.graph import StateGraph, START, END
 from src.schemas.state import AgentState
+from src.agent.orchestrator import orchestrator_node
 
 # --- Node Skeleton Functions ---
 # We will implement the actual LLM logic in these later.
-
-async def orchestrator_node(state: AgentState):
-    """
-    The master orchestrator. Evaluates current state and decides the next step.
-    Must output structured reasoning and set 'next_node' in the state.
-    """
-    print("--- ORCHESTRATOR NODE ---")
-    # Placeholder logic: route to decomposition if no subtasks exist
-    if not state.get("sub_tasks"):
-        return {"next_node": "decomposition_node"}
-    
-    # If tasks exist but final answer doesn't, we are simplifying here for the skeleton
-    if not state.get("final_answer"):
-        return {"next_node": "synthesis_node"}
-        
-    return {"next_node": END}
 
 async def decomposition_node(state: AgentState):
     """Breaks queries into a DAG of sub-tasks."""
