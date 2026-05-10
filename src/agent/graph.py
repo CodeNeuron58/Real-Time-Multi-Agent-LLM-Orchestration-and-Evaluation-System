@@ -4,14 +4,10 @@ from src.schemas.state import AgentState
 from src.agent.orchestrator import orchestrator_node
 from src.agent.decomposition import decomposition_node
 from src.agent.rag import rag_node
+from src.agent.critique import critique_node
 
 # --- Node Skeleton Functions ---
 # We will implement the actual LLM logic in these later.
-
-async def critique_node(state: AgentState):
-    """Reviews outputs, assigns confidence scores and flags spans."""
-    print("--- CRITIQUE NODE ---")
-    return {"next_node": "orchestrator_node"}
 
 async def synthesis_node(state: AgentState):
     """Merges outputs and resolves contradictions."""

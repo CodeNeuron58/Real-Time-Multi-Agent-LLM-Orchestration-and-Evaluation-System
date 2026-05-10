@@ -2,6 +2,7 @@ import json
 from typing import List, Dict, Any
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
+
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, HumanMessage
 
