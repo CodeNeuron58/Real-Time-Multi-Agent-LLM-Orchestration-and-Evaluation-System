@@ -118,14 +118,9 @@ curl -X POST "http://127.0.0.1:8000/api/v1/query/stream" \
 
 ---
 
-## 🧠 Why this project matters (For Recruiters)
+## 📄 License
 
-This repository serves as a demonstration of advanced AI engineering capabilities, specifically highlighting:
-
-1. **Beyond "Wrappers":** Moving past simple prompt engineering to build deterministic, state-driven software systems around stochastic LLM outputs.
-2. **System Architecture:** Implementing scalable, asynchronous microservice patterns (FastAPI, SSE) suitable for modern AI applications.
-3. **Observability & Control:** Designing systems where AI behavior is transparent, traceable (via strict state and tool logs), and self-correcting (Critique nodes).
-4. **Modern Python Mastery:** Utilizing the latest Python features, strong typing (Pydantic), and modern dependency management (`uv`).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
