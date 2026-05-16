@@ -1,5 +1,5 @@
 def main():
-    print("Hello from real-time-multi-agent-llm-orchestration-and-evaluation-system!")
+    print("Hello from Multi-Agent Orchestration System!")
 
 
 if __name__ == "__main__":

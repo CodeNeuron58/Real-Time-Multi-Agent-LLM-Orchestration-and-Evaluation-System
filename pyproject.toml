@@ -1,5 +1,5 @@
 [project]
-name = "Real-time-multi-agent-llm-orchestration-and-evaluation-system"
+name = "multi-agent-orchestration-system"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
